@@ -1,0 +1,37 @@
+{
+  "name": "Person",
+  "base": "User",
+  "idInjection": true,
+  "forceId": false,
+  "strict": "filter",
+  "indexes": {},
+  "mixins": {},
+  "scope": {},
+  "validateUpsert": true,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "created": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "gender": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

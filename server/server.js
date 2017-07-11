@@ -2,10 +2,35 @@
 
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+var utils = require('util');
 
 var app = module.exports = loopback();
 
 app.start = function() {
+  var db = app.dataSources.db;
+  if (db.connected) {
+    db.automigrate(seed);
+  } else {
+    db.once('connected', function () {
+      db.automigrate(seed);
+    });
+  }
+
+  function seed(){
+    app.models.Person.create({
+      'name': 'Doe',
+      'firstName': 'John',
+      'gender': 'M',
+      'username': 'john-doe',
+      'email': 'john-doe@mailinator.com',
+      'password': 'ilikerandompasswords'
+    });
+
+    app.models.Task.create({
+      'name': 'task',
+      'description': "some todos"
+    });
+  }
   // start the web server
   return app.listen(function() {
     app.emit('started');
